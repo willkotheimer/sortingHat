@@ -1,0 +1,43 @@
+
+
+.card-img-top {
+    width:100%;
+    height: auto;
+}
+
+.card {
+    margin: 20px 10px;
+}
+
+.clear:focus::-webkit-input-placeholder 
+{
+    color: transparent;
+    content: "";
+}
+
+.slytherin {
+ background-color: grey;
+ color: white;
+}
+
+.hufflepuff {
+background-color: gold;
+color: white;
+}
+
+.ravenclaw {
+background-color: green;
+color: white;
+}
+
+.gryffindor {
+background-color: lightblue;
+color: white;
+}
+
+#validation {
+    background-color: red;
+    color: white;
+    
+}
+
