@@ -5,8 +5,12 @@
     height: auto;
 }
 
-.card {
-    margin: 20px 10px;
+#cardSection {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 10px;
 }
 
 .clear:focus::-webkit-input-placeholder 

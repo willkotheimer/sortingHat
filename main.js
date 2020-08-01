@@ -1,6 +1,4 @@
-//Using for validation because javascript doesn't have insertAfter
-Object.prototype.insertAfter = function (newNode) { this.parentNode.insertBefore(newNode, this.nextSibling); }
-
+'use strict';
 // THIS IS THE FIRST BUTTON CLICK
 const letsStartSorting = () => {
     document.querySelector("#sortButton").addEventListener("click", sortingForm);
@@ -18,6 +16,7 @@ const sortingForm = () => {
                                   <label class="sr-only" for="inlineFormInput">Name</label>
                                   <input type="text" class="form-control mb-2 clear" id="FormInput" placeholder="Harry Potter" required>
                               </div>
+                              <div id="validationDiv"></div>
                               <div class="col-auto id="sort-buttondiv">
                                 <button type="submit" class="btn btn-primary mb-2" id="sort-button">Sort!</button>
                                 </div>
@@ -58,16 +57,26 @@ const getStudentName = (e) => {
             studentInput.push(studentObject);
 
         } else {
-            let newDiv = document.createElement("div");
-            newDiv.setAttribute("id", "validation");
-            let newContent = document.createTextNode("Hi there and greetings! You have either entered a duplicate or tried to enter nothing. Neither will do!");
-            newDiv.appendChild(newContent);
-            let currentDiv = document.getElementById("FormInput");
-            currentDiv.insertAfter(newDiv, currentDiv);
+            let validation = `<div id="validation">
+            Hi there and greetings! You have either entered a duplicate or tried to enter nothing. Neither will do!
+            </div>`;
+            let inputDiv = document.getElementById('validationDiv');
+
+            inputDiv.innerHTML = validation;
             setTimeout(function () {
-                let valid = document.getElementById("validation");
-                valid.remove();
+                inputDiv.innerHTML = '';
             }, 2200);
+
+            // let newDiv = document.createElement("div");
+            // newDiv.setAttribute("id", "validation");
+            // let newContent = document.createTextNode("Hi there and greetings! You have either entered a duplicate or tried to enter nothing. Neither will do!");
+            // newDiv.appendChild(newContent);
+            // let currentDiv = document.getElementById("FormInput");
+            // currentDiv.insertBefore(newDiv, currentDiv);
+            // setTimeout(function () {
+            //     let valid = document.getElementById("validation");
+            //     valid.remove();
+            // }, 2200);
         }
 
         houseCards();
@@ -94,7 +103,7 @@ const houseCards = () => {
 
     for (let i = 0; i < studentInput.length; i++) {
         let classSelector = studentInput[i].house.toLowerCase();
-        cardString += `<div class="card ${classSelector}" style="width: 18rem;">
+        cardString += `<div class="card-section ${classSelector}" style="width: 18rem;">
             <img src="images/${studentInput[i].house}.png" class="card-img-top" alt = "${studentInput[i].house}" >
                 <div class="card-body">
                     <h2 class="card-title">${studentInput[i].house}</h2>
