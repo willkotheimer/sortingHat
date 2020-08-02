@@ -28,18 +28,21 @@ const sortingForm = () => {
 
 };
 
-// THIS SORTS THE ARRAY (IN PROGRESS, NOT WORKING)
+// THIS SORTS THE ARRAY BEFORE PRINTING IT
 
-const SortByName = (myArray) => {
-    myArray.sort(function (a, b) {
-        var nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase()
-        if (nameA < nameB) //sort string ascending
-            return -1
-        if (nameA > nameB)
-            return 1
-        return 0 //default return value (no sorting)
-    })
+const SortByName = (a, b) => {
+    // Use toLowerCase() to ignore character casing
+    const nameA = a.studentName.toLowerCase();
+    const nameB = b.studentName.toLowerCase();
+    let comparison = 0;
+    if (nameA > nameB) {
+        comparison = 1;
+    } else if (nameA < nameB) {
+        comparison = -1;
+    }
+    return comparison;
 }
+
 // THIS CAPTURES THE STUDENT INPUT
 let studentInput = [];
 
@@ -95,6 +98,9 @@ const houseCards = () => {
 
     let cardString = "";
 
+    //First resort
+    studentInput.sort(SortByName);
+    //Then print
     for (let i = 0; i < studentInput.length; i++) {
         let classSelector = studentInput[i].house.toLowerCase();
         cardString += `<div class="card-section ${classSelector}" style="width: 18rem;">
