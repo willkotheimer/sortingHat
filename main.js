@@ -1,5 +1,3 @@
-//Using for validation because javascript doesn't have insertAfter
-Object.prototype.insertAfter = function (newNode) { this.parentNode.insertBefore(newNode, this.nextSibling); }
 
 // THIS IS THE FIRST BUTTON CLICK
 const letsStartSorting = () => {
@@ -54,30 +52,34 @@ const getStudentName = (e) => {
         const found = studentInput.some(el => el.studentName === name);
         if (name != "" && !found) {
             let studentObject = { studentName: name, house: randomizer() };
-            console.log(studentInput);
+            document.querySelector("#FormInput").value = "";
             studentInput.push(studentObject);
 
         } else {
-            let newDiv = document.createElement("div");
-            newDiv.setAttribute("id", "validation");
-            let newContent = document.createTextNode("Hi there and greetings! You have either entered a duplicate or tried to enter nothing. Neither will do!");
-            newDiv.appendChild(newContent);
-            let currentDiv = document.getElementById("FormInput");
-            currentDiv.insertAfter(newDiv, currentDiv);
+            let validation = `<div id="validation">
+            Hi there and greetings! You have either entered a duplicate or tried to enter nothing. Neither will do!
+            </div>`;
+            let inputDiv = document.getElementById('validationDiv');
+
+            inputDiv.innerHTML = validation;
             setTimeout(function () {
-                let valid = document.getElementById("validation");
-                valid.remove();
+                inputDiv.innerHTML = '';
             }, 2200);
+
+
         }
 
         houseCards();
     }
 };
 
+
 // THIS HOLDS BUTTON EVENTS
 const buttonEvents = () => {
     document.querySelector("#nameForm").addEventListener("click", getStudentName);
-    document.querySelector("#cardSection").addEventListener("click", houseCards);
+    //document.querySelector("#cardSection").addEventListener("click", houseCards);
+    document.querySelector('#cardSection').addEventListener("click", expelStudent);
+
 };
 
 // THIS SPITS OUT A RANDOM HOUSE
@@ -100,22 +102,23 @@ const houseCards = () => {
                     <h2 class="card-title">${studentInput[i].house}</h2>
                     <h3 id="studentsNameCard">${studentInput[i].studentName}</h3>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <button type="submit" class="btn btn-primary mb-2" id="expel"> EXPEL! </button>
+                    <button type="submit" class="btn btn-primary mb-2" id="${i}"> EXPEL! </button>
                 </div>
                       </div > `;
     }
 
     printToDom("#cardSection", cardString);
-    document.querySelector("#expel").addEventListener("click", expelStudent);
 };
 
 const expelStudent = (e) => {
     e.preventDefault();
-    let buttonId = e.target.id;
-    if (buttonId === "expel") {
-        studentInput.splice(e.target, 1);
+    const ctype = e.target.type;
+    const target = e.target.id;
+    if (ctype === 'submit') {
+        studentInput.splice(e.target.id, 1);
         houseCards();
     }
+
 }
 const init = () => {
     letsStartSorting();
