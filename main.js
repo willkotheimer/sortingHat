@@ -1,3 +1,4 @@
+'use strict';
 
 // THIS IS THE FIRST BUTTON CLICK
 const letsStartSorting = () => {
@@ -16,6 +17,7 @@ const sortingForm = () => {
                                   <label class="sr-only" for="inlineFormInput">Name</label>
                                   <input type="text" class="form-control mb-2 clear" id="FormInput" placeholder="Harry Potter" required>
                               </div>
+                              <div id="validationDiv"></div>
                               <div class="col-auto id="sort-buttondiv">
                                 <button type="submit" class="btn btn-primary mb-2" id="sort-button">Sort!</button>
                                 </div>
@@ -66,7 +68,6 @@ const getStudentName = (e) => {
                 inputDiv.innerHTML = '';
             }, 2200);
 
-
         }
 
         houseCards();
@@ -96,7 +97,7 @@ const houseCards = () => {
 
     for (let i = 0; i < studentInput.length; i++) {
         let classSelector = studentInput[i].house.toLowerCase();
-        cardString += `<div class="card ${classSelector}" style="width: 18rem;">
+        cardString += `<div class="card-section ${classSelector}" style="width: 18rem;">
             <img src="images/${studentInput[i].house}.png" class="card-img-top" alt = "${studentInput[i].house}" >
                 <div class="card-body">
                     <h2 class="card-title">${studentInput[i].house}</h2>
